@@ -93,7 +93,7 @@ apns(#{playload := P, key := K, cert := C, url := U, token := T}) ->
 
 fcm(#{playload := P, key := K, url := U}) ->
     _ = httpc:set_options([{keep_alive_timeout, 0}]),
-    {_, Resp} = httpc:request(post, {U, [{"Authorization", "key=" ++ K}], "application/json", jsx:encode(P)}, [], []),
+    {_, Resp} = httpc:request(post, {U, [{"Authorization", "Bearer " ++ K}], "application/json", jsx:encode(P)}, [], []),
     handle_status(get_http_resp_code(Resp), get_http_resp_body(Resp)).
 
 %% -------------------------------------------------------------------
